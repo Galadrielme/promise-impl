@@ -5,7 +5,7 @@ import { defineConfigurable, defineUnenumerable } from "../utils/define";
 import impl from "./implements";
 
 export default class PromiseImpl<T> implements Promise<T> {
-    protected readonly _!: PromiseKernel;
+    declare protected readonly _: PromiseKernel;
   
     constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void) {
         impl.constructor.call(this, executor);

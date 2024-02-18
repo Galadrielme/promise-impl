@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
     "allowJs": false,
     "importHelpers": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
+    "preserveConstEnums": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "downlevelIteration": true,
@@ -14,6 +14,10 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "baseUrl": ".",
+    "declarationDir": "types",
+    "outDir": "dist",
+    "noEmit": true,
+    "declaration": true,
     "types": [
       "node",
       "jest"
@@ -43,6 +47,9 @@
     "tests/**/*.ts"
   ],
   "exclude": [
+    "dist",
+    "dist",
+    "coverage",
     "node_modules"
   ]
 }

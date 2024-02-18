@@ -47,7 +47,7 @@ class PromiseKernel {
      */
     reject (reason: any) {
         /** 只有在pending状态才进一步处理 */
-        if (this.state !== PromiseState.PENDING) return;
+        if (this.invoked || this.state !== PromiseState.PENDING) return;
         this.invoked = true;
         _rejected(this, reason);
     }

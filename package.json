@@ -1,18 +1,27 @@
 {
-  "name": "promise-impl",
-  "version": "0.0.1",
+  "name": "@galadrielme/promise-impl",
+  "version": "0.0.2",
+  "author": "Kevin Wang",
+  "description": "手写实现原生Promise的功能, 属于练手项目, 源码完全开放, 欢迎交流",
+  "homepage": "https://github.com/Galadrielme/promise-impl",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Galadrielme/promise-impl.git"
+  },
   "scripts": {
     "run": "ts-node main.ts",
     "build": "esbuild main.ts --outfile=./build/promise-impl.js --format=iife --global-name=PromiseImpl --bundle --sourcemap",
-    "test": "jest"
+    "build:min": "esbuild main.ts --outfile=./build/promise-impl.min.js --format=iife --global-name=PromiseImpl --bundle --sourcemap --minify",
+    "test": "jest",
+    "publish": "npm publish --access public"
   },
+  "keywords": ["promise", "async", "await"],
   "dependencies": {
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-typescript": "^7.23.3",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.12",
-    "assert": "^2.1.0",
-    "chalk": "^5.3.0",
     "esbuild": "^0.20.0",
     "jest": "^29.7.0",
     "mocha": "^10.2.0",

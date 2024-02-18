@@ -30,15 +30,19 @@ describe("/promise/implements/Promise.withResolvers", () => {
         });
         test("with Fulfilled", () => {
             return testWithNativePromise((ctor) => {
-                const { promise, resolve } = ctor.withResolvers();
-                resolve(1);
+                const { promise, resolve, reject } = ctor.withResolvers();
+                resolve(Promise.resolve(1));
+                reject(-1);
+                resolve(2);
                 return promise;
             });
         });
         test("with Rejected", () => {
             return testWithNativePromise((ctor) => {
-                const { promise, reject } = ctor.withResolvers();
+                const { promise, resolve, reject } = ctor.withResolvers();
                 reject(-1);
+                resolve(2);
+                reject(-2);
                 return promise;
             });
         });
