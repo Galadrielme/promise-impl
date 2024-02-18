@@ -5,14 +5,17 @@
   "description": "手写实现原生Promise的功能, 属于练手项目, 源码完全开放, 欢迎交流",
   "homepage": "https://github.com/Galadrielme/promise-impl",
   "license": "Apache-2.0",
+  "main": "dist/promise-impl.min.js",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Galadrielme/promise-impl.git"
   },
   "scripts": {
     "run": "ts-node main.ts",
-    "build": "esbuild main.ts --outfile=./build/promise-impl.js --format=iife --global-name=PromiseImpl --bundle --sourcemap",
-    "build:min": "esbuild main.ts --outfile=./build/promise-impl.min.js --format=iife --global-name=PromiseImpl --bundle --sourcemap --minify",
+    "build": "esbuild src/main.ts --outfile=./dist/promise-impl.js --format=iife --global-name=PromiseImpl --bundle --sourcemap",
+    "build:min": "esbuild src/main.ts --outfile=./dist/promise-impl.min.js --format=iife --global-name=PromiseImpl --bundle --sourcemap --minify",
     "test": "jest",
     "publish": "npm publish --access public"
   },

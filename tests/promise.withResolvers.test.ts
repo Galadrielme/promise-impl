@@ -5,7 +5,7 @@ import { testWithNativePromise, shouldNotBeInvoked, CASES, MANY_TYPES, MANY_PEND
  * 测试Promise.withResolvers
  */
 describe("/promise/implements/Promise.withResolvers", () => {
-    if (!isFunction(Promise.withResolvers)) {
+    if (!isFunction((Promise as any).withResolvers)) {
         test("No native Promise.withResovlers", () => {
             expect(0).toBe(0);
         });

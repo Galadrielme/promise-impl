@@ -29,3 +29,9 @@ export default function withResolvers<T>(this: any): PromiseWithResolvers<T> {
         reject
     }
 }
+
+export interface PromiseWithResolvers<T> {
+    promise: Promise<T>;
+    resolve: (value: T | PromiseLike<T>) => void;
+    reject: (reason?: any) => void;
+}

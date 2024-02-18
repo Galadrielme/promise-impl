@@ -3,6 +3,7 @@ import PromiseStateLabel from "../enum/PromiseStateLabel";
 import PromiseKernel from "../kernel";
 import { defineConfigurable, defineUnenumerable } from "../utils/define";
 import impl from "./implements";
+import type { PromiseWithResolvers } from "./implements/Promise.withResolvers";
 
 export default class PromiseImpl<T> implements Promise<T> {
     declare protected readonly _: PromiseKernel;

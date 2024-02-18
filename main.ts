@@ -1,7 +1,7 @@
-import Promise from "./src/promise";
-import PromiseKernel from "./src/kernel";
+import Promise from "./dist/promise";
+import PromiseKernel from "./dist/kernel";
 
 export default Promise;
 export {
     PromiseKernel
-};
+}
