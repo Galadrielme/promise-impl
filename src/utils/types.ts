@@ -2,8 +2,12 @@ export function isFunction (o: any): o is Function {
     return typeof o === "function";
 }
 
-export function isObjectLike (o: any): o is PromiseLike<any> {
+export function isObjectLike (o: any): o is Record<PropertyKey, any> {
     return typeof o === "object" && o !== null;
+}
+
+export function isString (o: any): o is string {
+    return typeof o === "string";
 }
 
 export function isPromiseLike (o: any): o is PromiseLike<any> {
@@ -17,7 +21,6 @@ export function isNative (o: any): boolean {
 export function isIterable (o: any): boolean {
     return !!(o && isFunction(o[Symbol.iterator]));
 }
-
   
 /**
  * 获取错误的执行器类型输出

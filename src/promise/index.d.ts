@@ -1,29 +1,21 @@
-import { formatPromiseState } from "../utils/state";
-import PromiseStateLabel from "../enum/PromiseStateLabel";
+import createCustomPromise from "./factory";
 import PromiseKernel from "../kernel";
-import { defineConfigurable, defineUnenumerable } from "../utils/define";
-import impl from "./implements";
-import type { PromiseWithResolvers } from "./implements/Promise.withResolvers";
+import PromiseStateLabel from "../enum/PromiseStateLabel";
+import { PromiseWithResolvers } from "./implements/Promise.withResolvers";
 
-export default class PromiseImpl<T> implements Promise<T> {
+declare class PromiseImpl<T> implements Promise<T> {
     declare protected readonly _: PromiseKernel;
-  
-    constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void) {
-        impl.constructor.call(this, executor);
-    }
+
+    constructor (executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void);
 
     declare readonly [Symbol.toStringTag]: string;
 
     //#region #PromiseState / #PromiseResult
     /** 模拟Promise在Console下查看状态[[PromiseState]] */
-    get #PromiseState (): PromiseStateLabel {
-        return formatPromiseState(this._.state);
-    }
+    get #PromiseState (): PromiseStateLabel;
 
     /** 模拟Promise在Console下查看值[[PromiseResult]] */
-    get #PromiseResult (): any {
-        return this._.result;
-    }
+    get #PromiseResult (): any;
     //#endregion
 
     //#region [lib.es5.d.ts] then / catch
@@ -52,7 +44,7 @@ export default class PromiseImpl<T> implements Promise<T> {
     declare finally: (onfinally?: (() => void) | null | undefined) => Promise<T>;
     //#endregion
   
-    static get [Symbol.species] () { return this; }
+    static get [Symbol.species] (): any;
 
     //#region [lib.es2015.promise.d.ts] static reject
     /**
@@ -60,9 +52,7 @@ export default class PromiseImpl<T> implements Promise<T> {
      * @param reason The reason the promise was rejected.
      * @returns A new rejected Promise.
      */
-    static reject<T = never>(reason?: any): Promise<T> {
-        throw new Error("Method not implemented.");
-    }
+    static reject<T = never>(reason?: any): Promise<T>;
     //#endregion
   
     //#region [lib.es2015.promise.d.ts] static resolve
@@ -82,9 +72,7 @@ export default class PromiseImpl<T> implements Promise<T> {
      * @param value A promise.
      * @returns A promise whose internal state matches the provided promise.
      */
-    static resolve<T>(value?: T | PromiseLike<T>): Promise<Awaited<T>> {
-        throw new Error("Method not implemented.");
-    }
+    static resolve<T>(value?: T | PromiseLike<T>): Promise<Awaited<T>>;
     //#endregion
   
     //#region [lib.es2015.promise.d.ts / lib.es2018.iterable.d.ts] static all
@@ -94,9 +82,7 @@ export default class PromiseImpl<T> implements Promise<T> {
      * @param values An array of Promises.
      * @returns A new Promise.
      */
-    static all<T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: Awaited<T[P]>; }> {
-      throw new Error("Method not implemented.");
-    }
+    static all<T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: Awaited<T[P]>; }>;
     //#endregion
   
     //#region [lib.es2015.promise.d.ts / lib.es2018.iterable.d.ts] static race
@@ -106,9 +92,7 @@ export default class PromiseImpl<T> implements Promise<T> {
      * @param values An array of Promises.
      * @returns A new Promise.
      */
-    static race<T extends readonly unknown[] | []>(values: T): Promise<Awaited<T[number]>> {
-        throw new Error("Method not implemented.");
-    }
+    static race<T extends readonly unknown[] | []>(values: T): Promise<Awaited<T[number]>>;
     //#endregion
 
     //#region [lib.es2020.promise.d.ts] static allSettled
@@ -118,7 +102,7 @@ export default class PromiseImpl<T> implements Promise<T> {
      * @param values An array of Promises.
      * @returns A new Promise.
      */
-    allSettled<T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: PromiseSettledResult<Awaited<T[P]>>; }>;
+    static allSettled<T extends readonly unknown[] | []>(values: T): Promise<{ -readonly [P in keyof T]: PromiseSettledResult<Awaited<T[P]>>; }>;
 
     /**
      * Creates a Promise that is resolved with an array of results when all
@@ -126,7 +110,7 @@ export default class PromiseImpl<T> implements Promise<T> {
      * @param values An array of Promises.
      * @returns A new Promise.
      */
-    allSettled<T>(values: Iterable<T | PromiseLike<T>>): Promise<PromiseSettledResult<Awaited<T>>[]>;
+    static allSettled<T>(values: Iterable<T | PromiseLike<T>>): Promise<PromiseSettledResult<Awaited<T>>[]>;
 
     /**
      * Creates a Promise that is resolved with an array of results when all
@@ -134,9 +118,7 @@ export default class PromiseImpl<T> implements Promise<T> {
      * @param values An array of Promises.
      * @returns A new Promise.
      */
-    allSettled(values: any): Promise<PromiseSettledResult<any>[]> {
-        throw new Error("Method not implemented.");
-    }
+    static allSettled(values: any): Promise<PromiseSettledResult<any>[]>;
     //#endregion
   
     //#region [lib.es2021.promise.d.ts] static any
@@ -145,23 +127,21 @@ export default class PromiseImpl<T> implements Promise<T> {
      * @param values An array or iterable of Promises.
      * @returns A new Promise.
      */
-    any<T extends readonly unknown[] | []>(values: T): Promise<Awaited<T[number]>>;
+    static any<T extends readonly unknown[] | []>(values: T): Promise<Awaited<T[number]>>;
 
     /**
      * The any function returns a promise that is fulfilled by the first given promise to be fulfilled, or rejected with an AggregateError containing an array of rejection reasons if all of the given promises are rejected. It resolves all elements of the passed iterable to promises as it runs this algorithm.
      * @param values An array or iterable of Promises.
      * @returns A new Promise.
      */
-    any(values: any): Promise<Awaited<T>>;
+    static any(values: any): Promise<Awaited<T>>;
 
     /**
      * The any function returns a promise that is fulfilled by the first given promise to be fulfilled, or rejected with an AggregateError containing an array of rejection reasons if all of the given promises are rejected. It resolves all elements of the passed iterable to promises as it runs this algorithm.
      * @param values An array or iterable of Promises.
      * @returns A new Promise.
      */
-    any<T>(values?: any): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
+    static any<T>(values?: any): Promise<any>;
     //#endregion
 
     //#region [lib.esnext.promise.d.ts] static withResolvers
@@ -173,21 +153,15 @@ export default class PromiseImpl<T> implements Promise<T> {
      * const { promise, resolve, reject } = Promise.withResolvers<T>();
      * ```
      */
-    withResolvers<T>(): PromiseWithResolvers<T> {
-        throw new Error("Method not implemented.");
-    }
+    static withResolvers<T>(): PromiseWithResolvers<T>;
     //#endregion
 }
+interface PromiseImplConstructor extends PromiseConstructor {
+    new <T> (executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): PromiseImpl<T>;
+}
 
-{
-    defineConfigurable(PromiseImpl.prototype, Symbol.toStringTag, "Promise");
-    defineUnenumerable(PromiseImpl.prototype, "then", impl.then);
-    defineUnenumerable(PromiseImpl.prototype, "catch", impl.catch);
-    defineUnenumerable(PromiseImpl.prototype, "finally", impl.finally);
-    defineUnenumerable(PromiseImpl, "resolve", impl.resolve);
-    defineUnenumerable(PromiseImpl, "reject", impl.reject);
-    defineUnenumerable(PromiseImpl, "all", impl.all);
-    defineUnenumerable(PromiseImpl, "allSettled", impl.allSettled);
-    defineUnenumerable(PromiseImpl, "race", impl.race);
-    defineUnenumerable(PromiseImpl, "withResolvers", impl.withResolvers);
+export default PromiseImpl;
+export {
+    PromiseImplConstructor,
+    createCustomPromise
 }

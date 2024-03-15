@@ -1,20 +1,23 @@
-import type PromiseImpl from "../index";
 import PromiseStateLabel from "../../enum/PromiseStateLabel";
-import allSettledImpl from "./Promise.allSettled";
+import type { PromiseImplConstructor } from "../index";
+import type { NormalizedCustomPromiseOptions } from "../factory";
+import type { PromiseImplements } from "../implements";
 
-/**
- * Promise#then
- * 
- * @param { Iterable } value
- * @returns { PromiseImpl }
- */
-export default function allImpl (this: typeof PromiseImpl<any>, values: any): Promise<any[]> {
-    return allSettledImpl.call(this, values).then(results => {
-        return results.map(result => {
-            if (result.status === PromiseStateLabel.FULFILLED) {
-                return result.value;
-            }
-            throw result.reason;
+export default function factory (options: NormalizedCustomPromiseOptions, impls: PromiseImplements) {
+    /**
+     * Promise.all
+     * 
+     * @param { Iterable } values
+     * @returns { PromiseImpl }
+     */
+    return function all (this: PromiseImplConstructor, values: any): Promise<any[]> {
+        return impls.static.allSettled.call(this, values).then(results => {
+            return results.map(result => {
+                if (result.status === PromiseStateLabel.FULFILLED) {
+                    return result.value;
+                }
+                throw result.reason;
+            });
         });
-    });
+    }
 }

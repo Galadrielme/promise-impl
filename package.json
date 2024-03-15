@@ -1,6 +1,6 @@
 {
   "name": "@galadrielme/promise-impl",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "author": "Kevin Wang",
   "description": "手写实现原生Promise的功能, 属于练手项目, 源码完全开放, 欢迎交流",
   "homepage": "https://github.com/Galadrielme/promise-impl",
@@ -19,8 +19,12 @@
     "test": "jest",
     "publish": "npm publish --access public"
   },
-  "keywords": ["promise", "async", "await"],
-  "dependencies": {
+  "keywords": [
+    "promise",
+    "async",
+    "await"
+  ],
+  "devDependencies": {
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-typescript": "^7.23.3",
     "@jest/globals": "^29.7.0",

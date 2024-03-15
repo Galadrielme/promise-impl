@@ -10,9 +10,12 @@ import { awaitCallback } from "./await";
  */
 export function executePromiseValue (value: any, execute: (value: any) => any, onfulfilled: (value: any) => void, onrejected: (reason: any) => void) {
     try {
-      const result = execute(value);
-      awaitCallback(result, onfulfilled, onrejected);
+        const result = execute(value);
+        awaitCallback(result, onfulfilled, onrejected);
     } catch (e) {
-      onrejected(e);
+        onrejected(e);
     }
-  }
+}
+
+export function run (fn: VoidFunction) { fn(); }
+export function noop () {}

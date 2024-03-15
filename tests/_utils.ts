@@ -1,6 +1,7 @@
 import { defineConstant } from "../src/utils/define";
 import PromiseImpl from "../src/promise";
 import PromiseState from "../src/enum/PromiseState";
+import _global from "../src/utils/global";
 
 /**
  * 延迟一定的ms

@@ -1,28 +1,32 @@
 import { executePromiseValue } from "../../utils/execute";
-import { microTask } from "../../utils/microTask";
-import withResolversImpl from "./Promise.withResolvers";
-import type PromiseImpl from "../index";
 import { getPromiseSpecies } from "../../utils/species";
+import type PromiseImpl from "../index";
+import type { NormalizedCustomPromiseOptions } from "../factory";
+import type { PromiseImplements } from "../implements";
 
-/**
- * Promise#then
- * 
- * @param { Function } onfinally 
- * @returns { PromiseImpl }
- */
-export default function finallyImpl <TResult = any> (this: PromiseImpl<TResult>, onfinally?: (() => any) | null | undefined): Promise<TResult> {
-    if (typeof onfinally !== "function") return this.then();
-    const { promise, resolve, reject } = withResolversImpl.call(getPromiseSpecies((this as any).constructor));
-    {
-        this._.callback((value: any) => {
-            microTask(() => {
-                executePromiseValue(void 0, onfinally, () => resolve(value), reject);
+export default function factory (options: NormalizedCustomPromiseOptions, impls: PromiseImplements) {
+    const { tick } = options;
+    const staticImpls = impls.static;
+    /**
+     * Promise#finally
+     * 
+     * @param { Function } onfinally 
+     * @returns { PromiseImpl }
+     */
+    return function finally_ <TResult = any> (this: PromiseImpl<TResult>, onfinally?: (() => any) | null | undefined): Promise<TResult> {
+        if (typeof onfinally !== "function") return this.then();
+        const { promise, resolve, reject } = staticImpls.withResolvers.call(getPromiseSpecies((this as any).constructor));
+        {
+            this._.callback((value: any) => {
+                tick(() => {
+                    executePromiseValue(void 0, onfinally, () => resolve(value), reject);
+                });
+            }, (reason: any) => {
+                tick(() => {
+                    executePromiseValue(void 0, onfinally, () => reject(reason), reject);
+                });
             });
-        }, (reason: any) => {
-            microTask(() => {
-                executePromiseValue(void 0, onfinally, () => reject(reason), reject);
-            });
-        });
+        }
+        return promise as Promise<TResult>;
     }
-    return promise as Promise<TResult>;
 }
