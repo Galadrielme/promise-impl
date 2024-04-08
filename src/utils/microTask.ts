@@ -5,7 +5,13 @@ const callbacks: VoidFunction[] = [];
 
 /** 实际的运行实现(参考了vue2) */
 let run = () => {
-    if (typeof MutationObserver !== 'undefined' && (
+    if (typeof Promise === "function" && isNative(Promise)) {
+        /** 如果存在native Promise, 就是用native Promise, 这个确实有点赖皮了 */
+        const promise = Promise.resolve();
+        run = function () {
+            promise.then(flushCallbacks);
+        }
+    } if (typeof MutationObserver !== 'undefined' && (
         isNative(MutationObserver) ||
         // PhantomJS and iOS 7.x
         MutationObserver.toString() === '[object MutationObserverConstructor]'
@@ -21,6 +27,7 @@ let run = () => {
             textNode.data = String(counter);
         };
     } else {
+        /** 回退方案, 如果确实无法实现microtask, 就使用macrotask */
         run = function () {
             setTimeout(flushCallbacks, 0);
         };

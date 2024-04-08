@@ -1,28 +1,31 @@
 {
   "name": "@galadrielme/promise-impl",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "author": "Kevin Wang",
-  "description": "手写实现原生Promise的功能, 属于练手项目, 源码完全开放, 欢迎交流",
+  "description": "The function of Promise is implemented by handwriting, and the goal is to be completely consistent with the function of native Promise.",
   "homepage": "https://github.com/Galadrielme/promise-impl",
   "license": "Apache-2.0",
-  "main": "dist/promise-impl.min.js",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "main": "./dist/promise-impl.min.js",
+  "module": "./main.js",
+  "types": "./main.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Galadrielme/promise-impl.git"
   },
   "scripts": {
     "run": "ts-node main.ts",
-    "build": "esbuild src/main.ts --outfile=./dist/promise-impl.js --format=iife --global-name=PromiseImpl --bundle --sourcemap",
-    "build:min": "esbuild src/main.ts --outfile=./dist/promise-impl.min.js --format=iife --global-name=PromiseImpl --bundle --sourcemap --minify",
+    "build": "node build.js",
+    "build:dev": "esbuild src/main.ts --outfile=./dist/dist/promise-impl.js --format=iife --global-name=PromiseImpl --bundle --sourcemap",
+    "build:pro": "esbuild src/main.ts --outfile=./dist/dist/promise-impl.min.js --format=iife --global-name=PromiseImpl --bundle --sourcemap --minify",
     "test": "jest",
-    "publish": "npm publish --access public"
+    "publish": "cd dist\nnpm publish --access public"
   },
   "keywords": [
     "promise",
     "async",
-    "await"
+    "await",
+    "polyfill",
+    "impl"
   ],
   "devDependencies": {
     "@babel/preset-env": "^7.23.9",

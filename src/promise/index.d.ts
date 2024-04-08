@@ -12,10 +12,10 @@ declare class PromiseImpl<T> implements Promise<T> {
 
     //#region #PromiseState / #PromiseResult
     /** 模拟Promise在Console下查看状态[[PromiseState]] */
-    get #PromiseState (): PromiseStateLabel;
+    //get #PromiseState (): PromiseStateLabel;
 
     /** 模拟Promise在Console下查看值[[PromiseResult]] */
-    get #PromiseResult (): any;
+    //get #PromiseResult (): any;
     //#endregion
 
     //#region [lib.es5.d.ts] then / catch

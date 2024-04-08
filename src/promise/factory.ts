@@ -31,7 +31,7 @@ export function create (options: NormalizedCustomPromiseOptions, impls: PromiseI
     
         constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void) {
             impls.construct.call(this, executor);
-            onCreated && onCreated(this as any);
+            onCreated && onCreated(this as any, this._);
             /** @since 1.0.0 */
             if (mockUnhandledRejectionEvent || mockConsoleErrorRejection) {
                 handledRejectionEvent.call(this as any, void 0, mockUnhandledRejectionEvent, mockConsoleErrorRejection);
@@ -40,14 +40,14 @@ export function create (options: NormalizedCustomPromiseOptions, impls: PromiseI
 
         //#region #PromiseState / #PromiseResult
         /** 模拟Promise在Console下查看状态[[PromiseState]] */
-        get #PromiseState (): PromiseStateLabel {
-            return formatPromiseState(this._.state);
-        }
+        // get #PromiseState (): PromiseStateLabel {
+        //     return formatPromiseState(this._.state);
+        // }
 
         /** 模拟Promise在Console下查看值[[PromiseResult]] */
-        get #PromiseResult (): any {
-            return this._.result;
-        }
+        // get #PromiseResult (): any {
+        //     return this._.result;
+        // }
         //#endregion
         
         //#region then / catch / finally
@@ -118,7 +118,7 @@ export interface NormalizedCustomPromiseOptions {
     species: PromiseConstructor | void;
     implements: PartialPromiseImplements;
     hookImplements?: (impls: PromiseImplements) => PartialPromiseImplements;
-    onCreated?: (instance: PromiseImpl<any>) => void;
+    onCreated?: (instance: PromiseImpl<any>, kernel: PromiseKernel) => void;
     mockUnhandledRejectionEvent: boolean;
     mockConsoleErrorRejection: boolean;
 
@@ -169,7 +169,7 @@ export interface CustomPromiseOptions {
      * @since 1.0.0
      * @param { Function }
      */
-    onCreated?: (instance: PromiseImpl<any>) => void;
+    onCreated?: (instance: PromiseImpl<any>, kernel: PromiseKernel) => void;
     /**
      * 是否模拟unhandledrejection事件
      * 
