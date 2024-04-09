@@ -25,13 +25,3 @@ export function getWrongIterableType (iterable: any): string {
     }
     return type
 }
-
-/** 一些需要显示为 `#<${ type }>` 的类型枚举 */
-export const NATIVE_TYPES = new Set([
-    "Object",
-    "Map",
-    "Set",
-    "Blob",
-    "ArrayBuffer",
-    "Promise"
-]);

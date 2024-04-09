@@ -1,4 +1,4 @@
-import { getWrongType } from "../utils/types";
+import { getTypeDisplay } from "../utils/types";
 
 /**
  * 校验 new Promise 入参
@@ -9,5 +9,5 @@ import { getWrongType } from "../utils/types";
 export function assertPromiseExecutor (executor: any)  {
     const type = typeof executor;
     if (type === "function") return;
-    throw new TypeError(`Promise resolver ${ getWrongType(executor, type) } is not a function`);
+    throw new TypeError(`Promise resolver ${ getTypeDisplay(executor, type) } is not a function`);
 }

@@ -19,3 +19,5 @@ export function executePromiseValue (value: any, execute: (value: any) => any, o
 
 export function run (fn: VoidFunction) { fn(); }
 export function noop () {}
+export function truly () { return true; }
+export function falsy () { return false; }

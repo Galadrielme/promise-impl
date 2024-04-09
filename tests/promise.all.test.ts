@@ -33,6 +33,38 @@ describe("/promise/implements/Promise.all", () => {
             });
         });
 
+        test ("without immediate Rejected", () => {
+            /**
+             * 测试用例
+             */
+            const cases = [
+                /** 测试在存在Rejected的时候是否立即截止 */
+                new Promise((resolve) => {
+                    setTimeout(resolve, 10000);
+                }),
+                CASES.RejectedPromise,
+            ]
+            return testWithNativePromise((ctor) => {
+                return ctor.all(cases);
+            });
+        });
+
+        test ("without first Rejected", () => {
+            /**
+             * 测试用例
+             */
+            const cases = [
+                /** 测试是否返回第一个拒绝的原因 */
+                new Promise((_, reject) => {
+                    setTimeout(() => { reject("first") }, 10000);
+                }),
+                CASES.RejectedPromise,
+            ]
+            return testWithNativePromise((ctor) => {
+                return ctor.all(cases);
+            });
+        });
+
         /** 测试包含pending的 */
         MANY_PENDING.forEach((getter, key) => {
             test(key, () => {

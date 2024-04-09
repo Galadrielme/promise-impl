@@ -15,13 +15,12 @@ describe("/promise/implements/Promise.race", () => {
             });
         })
     });
-    return;
 
     describe("Promise.race", () => {
         const slower = () => sleep(5, "slower");
         const faster = () => sleep(1, "faster");
 
-        test("without Pending / Rejted", () => {
+        test("without Pending / Rejeted", () => {
             /**
              * 测试用例
              */

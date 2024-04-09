@@ -150,11 +150,13 @@ var PromiseImpl = createCustomPromise({
 - Support for simulating the behavior of printing an exception as error in the browser devtool > Console.
 
 ### 2024-04-07
-@1.0.1
+#### @1.0.1
 - English markdown
 
 ### 2024-04-08
-@1.0.3
+#### @1.0.3
 - Remove irrelevant information
-@1.0.4
+#### @1.0.4
 - Switch Ts target/module to ES6
+#### @1.0.5
+- Fix some bug (Promise.all)

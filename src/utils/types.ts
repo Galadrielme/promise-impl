@@ -1,3 +1,5 @@
+const objectToString = Object.prototype.toString;
+
 export function isFunction (o: any): o is Function {
     return typeof o === "function";
 }
@@ -23,30 +25,21 @@ export function isIterable (o: any): boolean {
 }
   
 /**
- * 获取错误的执行器类型输出
+ * 获取对象的类型输出
  * 
- * @param { any } executor 
+ * @param { any } target 
  * @param { string } type
  */
-export function getWrongType (executor: any, type: string) {
+export function getTypeDisplay (target: any, type: string) {
     if (type === "object") {
-        if (executor === null) return "null";
-        const type = Object.prototype.toString.call(executor);
-        const tag = type.slice(8, -1);
-        if (NATIVE_TYPES.has(tag) && isNative(executor.constructor)) {
+        if (target === null) return "null";
+        const type = Object.prototype.toString.call(target);
+        /** 存在自定义的toString */
+        if (target.toString === objectToString) {
+            const tag = type.slice(8, -1);
             return `#<${ tag }>`;
         }
-        return type
+        return type;
     }
-    return String(executor);
+    return String(target);
 }
-
-/** 一些需要显示为 `#<${ type }>` 的类型枚举 */
-export const NATIVE_TYPES = new Set([
-    "Object",
-    "Map",
-    "Set",
-    "Blob",
-    "ArrayBuffer",
-    "Promise"
-]);

@@ -1,6 +1,6 @@
 {
   "name": "@galadrielme/promise-impl",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "author": "Kevin Wang",
   "description": "The function of Promise is implemented by handwriting, and the goal is to be completely consistent with the function of native Promise.",
   "homepage": "https://github.com/Galadrielme/promise-impl",
