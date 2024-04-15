@@ -1,4 +1,4 @@
 /**
- * @since Mon, 08 Apr 2024 11:14:41 GMT
+ * @since Mon, 15 Apr 2024 01:41:53 GMT
  */
-export default "1.0.5";
+export default "1.0.6";

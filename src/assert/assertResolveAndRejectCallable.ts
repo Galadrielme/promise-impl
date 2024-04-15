@@ -8,7 +8,7 @@ import { isFunction } from "../utils/types";
  * @throws { TypeError }
  */
 export function assertResolveAndRejectCallable (resolve: any, reject: any) {
-    if (!isFunction(resolve) && !isFunction(reject)) {
+    if (!isFunction(resolve) || !isFunction(reject)) {
         throw new TypeError(`Promise resolve or reject function is not callable`);
     }
 }

@@ -160,3 +160,7 @@ var PromiseImpl = createCustomPromise({
 - Switch Ts target/module to ES6
 #### @1.0.5
 - Fix some bug (Promise.all)
+
+### 2024-04-15
+#### @1.0.6
+- Optimise Error messages for new Promise
